@@ -27,7 +27,11 @@ def radio_france_culture():
     os.system("mpc add http://direct.franceculture.fr/live/franceculture-midfi.mp3")
     os.system("mpc play")
 
-#app = App(title="Hello world",layout="grid")
+def radio_france_musique():
+    os.system("mpc clear")
+    os.system("mpc add http://direct.francemusique.fr/live/francemusique-midfi.mp3")
+    os.system("mpc play")
+ 
 app = App(title="Hello world")
 
 if(platform.system()=="Linux"):
@@ -41,11 +45,13 @@ box_radio = Box(app, width="fill", align="top",layout="grid")
 box_home  = Box(app, width="fill", align="bottom")
 
 
-update_text = PushButton(box_home, command=radio_france_culture, image = "home.png",text="Back", align="bottom")
+update_text = PushButton(box_home, command=radio_france_culture,    image = "home.png",         text="Back", align="right")
 
-update_text = PushButton(box_radio, command=radio_fip,image = "fip.png", text="fip",grid=[0,0])
-update_text = PushButton(box_radio, command=radio_france_inter, image = "franceinter.png",text="france inter",grid=[1,0])
-update_text = PushButton(box_radio, command=radio_france_culture, image = "franceculture.png",text="france culture",grid=[2,0])
 
+update_text = PushButton(box_radio, command=radio_fip,              image = "fip.png",          text="fip",grid=[0,0])
+update_text = PushButton(box_radio, command=radio_france_inter,     image = "franceinter.png",  text="france inter",grid=[1,0])
+update_text = PushButton(box_radio, command=radio_france_culture,   image = "franceculture.png",text="france culture",grid=[2,0])
+update_text = PushButton(box_radio, command=radio_france_musique,   image = "francemusique.png",text="france msique",grid=[3,0])
+ 
 
 app.display()
