@@ -19,11 +19,12 @@ albumPathDesc =""
 basePathDesc = ""
         
 class record():
-    artiste=""
-    album=""
-    cover=""
-    genre =""
-    songs =[]
+    def __init__(self):
+        self.artiste=""
+        self.album=""
+        self.cover=""
+        self.genre =""
+        self.songs =[]
     
     def loadFromFile(self,filePath):
         file = open(filePath, 'r')       
@@ -35,8 +36,15 @@ class record():
                 if "<COVER>" in line:                    
                     self.cover=line.replace("<COVER>","") 
                     self.cover=self.cover.rstrip()
-                    
-                    print("cover=" + self.cover, end='')                   
+                elif "<ARTISTE>" in line:                    
+                    self.artiste=line.replace("<ARTISTE>","") 
+                    self.artiste=self.artiste.rstrip()   
+                elif "<ALBUM>" in line:                    
+                    self.album=line.replace("<ALBUM>","") 
+                    self.album=self.album.rstrip()
+                elif "mp3/" in line:                    
+                    self.songs.append(line.rstrip())
+                         
         finally:
             file.close()
     
@@ -96,6 +104,20 @@ def wndAlbumCreate(parent):
     
     UpdateButton(box_album)     
     
+     
+    
+def mpcPlay(m3u :record ):
+    global basePathDesc
+    
+    
+    
+    for song in m3u.songs:
+        print("mpc add " + basePathDesc + song , end=' ')
+        os.system("mpc clear")
+        os.system("mpc add "+ basePathDesc +song)
+        os.system("mpc play")
+    
+        
 def UpdateButton(parent):    
     global albumPathDesc
     global basePathDesc
@@ -108,17 +130,17 @@ def UpdateButton(parent):
         
     arrayButton.clear()   
 
-    if(arrayAlbumIdx+0 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+0].cover+"thumb",grid=[0,0]))
-    if(arrayAlbumIdx+1 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+1].cover+"thumb",grid=[1,0]))
-    if(arrayAlbumIdx+2 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+2].cover+"thumb",grid=[2,0]))
-    if(arrayAlbumIdx+3 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+3].cover+"thumb",grid=[3,0]))
-    if(arrayAlbumIdx+4 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+4].cover+"thumb",grid=[4,0]))
+    if(arrayAlbumIdx+0 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+0]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+0].cover+"thumb",grid=[0,0]))
+    if(arrayAlbumIdx+1 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+1]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+1].cover+"thumb",grid=[1,0]))
+    if(arrayAlbumIdx+2 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+2]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+2].cover+"thumb",grid=[2,0]))
+    if(arrayAlbumIdx+3 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+3]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+3].cover+"thumb",grid=[3,0]))
+    if(arrayAlbumIdx+4 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+4]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+4].cover+"thumb",grid=[4,0]))
     
-    if(arrayAlbumIdx+5 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+5].cover+"thumb",grid=[0,1]))
-    if(arrayAlbumIdx+6 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+6].cover+"thumb",grid=[1,1]))
-    if(arrayAlbumIdx+7 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+7].cover+"thumb",grid=[2,1]))
-    if(arrayAlbumIdx+8 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+8].cover+"thumb",grid=[3,1]))
-    if(arrayAlbumIdx+9 < len(arrayAlbum)): arrayButton.append(PushButton(parent,  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+9].cover+"thumb",grid=[4,1]))
+    if(arrayAlbumIdx+5 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+5]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+5].cover+"thumb",grid=[0,1]))
+    if(arrayAlbumIdx+6 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+6]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+6].cover+"thumb",grid=[1,1]))
+    if(arrayAlbumIdx+7 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+7]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+7].cover+"thumb",grid=[2,1]))
+    if(arrayAlbumIdx+8 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+8]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+8].cover+"thumb",grid=[3,1]))
+    if(arrayAlbumIdx+9 < len(arrayAlbum)): arrayButton.append(PushButton(parent, command=mpcPlay,args=[arrayAlbum[arrayAlbumIdx+9]],  image = basePathDesc+ arrayAlbum[arrayAlbumIdx+9].cover+"thumb",grid=[4,1]))
     
     
     
