@@ -112,9 +112,11 @@ def mpcPlay(m3u :record ):
     
     
     for song in m3u.songs:
-        print("mpc add " + basePathDesc + song , end=' ')
-        os.system("mpc clear")
-        os.system("mpc add "+ basePathDesc +song)
+        mp3Path=basePathDesc +song.split(" ")[0]
+        
+        print("mpc add " + mp3Path , end=' ')
+        os.system("mpc clear")       
+        os.system("mpc add "+ mp3Path)
         os.system("mpc play")
     
         
