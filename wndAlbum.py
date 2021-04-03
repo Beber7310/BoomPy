@@ -64,8 +64,8 @@ def wndAlbumCreate(parent):
     appAlbum = Window(parent)
     if(platform.system()=="Linux"):
         appAlbum.set_full_screen()
-        albumPathDesc = "/mnt/downloads/audion/album/"
-        basePathDesc  = "/mnt/downloads/audion/"
+        albumPathDesc = "/mnt/Music/album/"
+        basePathDesc  = "/mnt/Music/"
       
     if(platform.system()=="Windows"):
         appAlbum.width=800
@@ -79,18 +79,18 @@ def wndAlbumCreate(parent):
     PushButton(box_home,command=prevAlbum, text ="<", align="left")
     PushButton(box_home,command=nextAlbum, text =">", align="right")
     
-    #for filename in glob.glob('*.piz'):
     for filename in glob.glob(os.path.join(albumPathDesc, '*.piz')):
         albumInst = record();
         albumInst.loadFromFile(filename)
-        print("I " + basePathDesc , end='')
-        print("I " + albumInst.cover, end='')
-        print("I " + basePathDesc + albumInst.cover, end='')
-       
-        im = Image.open(basePathDesc + albumInst.cover) 
-        newsize = (154,154)
-        im = im.resize(newsize)
-        im.save( basePathDesc + albumInst.cover+"thumb", "JPEG")     
+        
+        if(not os.path.exists(basePathDesc + albumInst.cover+"thumb")):
+            print("Creating " + basePathDesc + albumInst.cover+"thumb" , end='')
+            im = Image.open(basePathDesc + albumInst.cover) 
+            newsize = (154,154)
+            im = im.resize(newsize)
+            im.save( basePathDesc + albumInst.cover+"thumb", "GIF")     
+        else:
+            print("Skip creating " + basePathDesc + albumInst.cover+"thumb" , end='')
         
         arrayAlbum.append(albumInst)
     
