@@ -64,11 +64,13 @@ def prevAlbum():
         arrayAlbumIdx=0
     UpdateButton(box_album)      
     
+
 def wndAlbumCreate(parent):
     global albumPathDesc
     global basePathDesc
     global box_album
     
+    global appAlbum 
     appAlbum = Window(parent)
     if(platform.system()=="Linux"):
         appAlbum.set_full_screen()
@@ -84,8 +86,9 @@ def wndAlbumCreate(parent):
     box_album = Box(appAlbum, width="fill", align="top",layout="grid")
     box_home  = Box(appAlbum, width="fill", align="bottom")
 
-    PushButton(box_home,command=prevAlbum, text ="<", align="left")
-    PushButton(box_home,command=nextAlbum, text =">", align="right")
+    PushButton(box_home,command=nextAlbum, text =">", align="right",width=20,height="fill")
+    PushButton(box_home,command=prevAlbum, text ="<", align="right",width=20,height="fill")    
+    PushButton(box_home, command=window_hide_album,       image = "home.png",         text="Back", align="left")
     
     for filename in glob.glob(os.path.join(albumPathDesc, '*.piz')):
         albumInst = record();
@@ -103,8 +106,15 @@ def wndAlbumCreate(parent):
         arrayAlbum.append(albumInst)
     
     UpdateButton(box_album)     
+    appAlbum.hide()  
     
-     
+def window_hide_album():
+    appAlbum.hide()  
+
+def window_show_album():
+    appAlbum.show()  
+        
+  
     
 def mpcPlay(m3u :record ):
     global basePathDesc

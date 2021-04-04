@@ -59,9 +59,15 @@ def window_show_chicken():
         appChicken.height=480
         
         
+def window_show_album():
+   wndAlbum.window_show_album()
+         
 def window_hide_radio():
     appRadio.hide()    
-        
+ 
+def window_hide_chicken():
+    appChicken.hide()    
+           
 app = App(title="Main")
 appRadio = Window(app)
 appRadio.hide()
@@ -85,15 +91,16 @@ if(platform.system()=="Windows"):
 wndAlbum.wndAlbumCreate(app)
     
 #----------------------------------------------------------------------------------------------------------
-update_text = PushButton(app, command=window_show_radio,    image = "radio.png")
-update_text = PushButton(app, command=window_show_chicken,    image = "chicken.png")
+update_text = PushButton(app, command=window_show_chicken,    image = "chicken.png",align="left")
+update_text = PushButton(app, command=window_show_radio,    image = "radio.png" ,align="left")
+update_text = PushButton(app, command=window_show_album,    image = "album.png",align="left")
 
 
 #----------------------------------------------------------------------------------------------------------
 box_radio = Box(appRadio, width="fill", align="top",layout="grid")
 box_home  = Box(appRadio, width="fill", align="bottom")
 
-update_text = PushButton(box_home, command=window_hide_radio,       image = "home.png",         text="Back", align="right")
+update_text = PushButton(box_home, command=window_hide_radio,       image = "home.png",         text="Back", align="left")
 update_text = PushButton(box_radio, command=radio_fip,              image = "fip.png",          text="fip",grid=[0,0])
 update_text = PushButton(box_radio, command=radio_france_inter,     image = "franceinter.png",  text="france inter",grid=[1,0])
 update_text = PushButton(box_radio, command=radio_france_culture,   image = "franceculture.png",text="france culture",grid=[2,0])
@@ -104,7 +111,7 @@ update_text = PushButton(box_radio, command=radio_france_musique,   image = "fra
 box_chicken_cmd     = Box(appChicken, width="fill", align="top",layout="grid")
 box_chicken_home    = Box(appChicken, width="fill", align="bottom")
 
-update_text = PushButton(box_chicken_home, command=window_hide_radio,   image = "home.png",         text="Back", align="right")
+update_text = PushButton(box_chicken_home, command=window_hide_chicken,   image = "home.png",     text="Back", align="left")
 update_text = PushButton(box_chicken_cmd, command=chicken_open,         image = "open.png",     grid=[0,0])
 update_text = PushButton(box_chicken_cmd, command=chicken_close,        image = "close.png",    grid=[1,0])
 
