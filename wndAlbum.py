@@ -110,15 +110,13 @@ def mpcPlay(m3u :record ):
     global basePathDesc
     
     
-    
+    os.system("mpc clear")   
     for song in m3u.songs:
-        mp3Path=basePathDesc +song.split(" ")[0]
-        
-        print("mpc add " + mp3Path , end=' ')
-        os.system("mpc clear")       
+        mp3Path=basePathDesc +song.split(" ")[0]        
+        print("mpc add " + mp3Path , end=' ')            
         os.system("mpc add "+ mp3Path)
-        os.system("mpc play")
-    
+        
+    os.system("mpc play")
         
 def UpdateButton(parent):    
     global albumPathDesc
