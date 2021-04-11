@@ -4,9 +4,11 @@ Created on 27 mars 2021
 @author: bdosd
 '''
 from guizero import App,Box,PushButton,os,Window
+from PIL import Image
  
 import platform
-import wndAlbum
+import wndDeezer
+
 
 
 if __name__ == '__main__':
@@ -34,7 +36,13 @@ def radio_france_musique():
     os.system("mpc add http://direct.francemusique.fr/live/francemusique-midfi.mp3")
     os.system("mpc play")
  
- 
+def imgResize(imgName):
+    im = Image.open("image/"+imgName) 
+    newsize = (154,154)
+    im = im.resize(newsize)
+    im.save(imgName)     
+
+    
 def chicken_open():
     os.system("")
     
@@ -61,7 +69,12 @@ def window_show_chicken():
         
 def window_show_album():
    wndAlbum.window_show_album()
-         
+
+def window_show_playlist():
+   wndPlaylist.window_show_album()
+            
+            
+            
 def window_hide_radio():
     appRadio.hide()    
  
@@ -88,12 +101,26 @@ if(platform.system()=="Windows"):
     appChicken.width=800
     appChicken.height=480
     
-wndAlbum.wndAlbumCreate(app)
+
+wndAlbum = wndDeezer.WindowsTracks ();
+wndAlbum.wndAlbumCreate(app,"album")
+
+wndPlaylist = wndDeezer.WindowsTracks ();
+wndPlaylist.wndAlbumCreate(app,"playlist")
     
+
+imgResize("album.png")
+imgResize("chicken.png")
+imgResize("radio.png")
+imgResize("playlist.png")
+
+                
+                
 #----------------------------------------------------------------------------------------------------------
-update_text = PushButton(app, command=window_show_chicken,    image = "chicken.png",align="left")
+update_text = PushButton(app, command=window_show_chicken,  image = "chicken.png",align="left")
 update_text = PushButton(app, command=window_show_radio,    image = "radio.png" ,align="left")
 update_text = PushButton(app, command=window_show_album,    image = "album.png",align="left")
+update_text = PushButton(app, command=window_show_playlist, image = "playlist.png",align="left")
 
 
 #----------------------------------------------------------------------------------------------------------
