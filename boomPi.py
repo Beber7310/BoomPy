@@ -80,7 +80,13 @@ def window_hide_radio():
  
 def window_hide_chicken():
     appChicken.hide()    
-           
+      
+      
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
+
+     
 app = App(title="Main")
 appRadio = Window(app)
 appRadio.hide()
