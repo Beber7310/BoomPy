@@ -98,6 +98,7 @@ if(platform.system()=="Linux"):
     app.set_full_screen()
     appRadio.set_full_screen()
     appChicken.set_full_screen()
+    os.system("sudo mount -a")
 
 if(platform.system()=="Windows"):
     app.width=800
@@ -106,6 +107,7 @@ if(platform.system()=="Windows"):
     appRadio.height=480
     appChicken.width=800
     appChicken.height=480
+    
     
 
 wndAlbum = wndDeezer.WindowsTracks ();
