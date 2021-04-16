@@ -5,10 +5,12 @@ Created on 27 mars 2021
 '''
 from guizero import App,Box,PushButton,os,Window
 from PIL import Image
- 
+from os import path
+
+import os.path
 import platform
 import wndDeezer
-
+import time
 
 
 if __name__ == '__main__':
@@ -98,7 +100,9 @@ if(platform.system()=="Linux"):
     app.set_full_screen()
     appRadio.set_full_screen()
     appChicken.set_full_screen()
-    os.system("sudo mount -a")
+    while(not path.exists("/mnt/Music/")):
+        time.sleep(5)
+        os.system("sudo mount -a")
 
 if(platform.system()=="Windows"):
     app.width=800
